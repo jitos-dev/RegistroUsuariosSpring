@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+
+    <link rel="stylesheet" href="#" th:href="@{css/style.css}">
+
+    <!--css de bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!--Javascript de bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center text-center m-5">
+            <h4>Registro de usuarios</h4>
+
+            <!--Div para la alerta de usuario ya existe en la aplicacion-->
+            <div class="alert alert-danger" th:if="${existUsername}">El nombre de usuario ya esta registrado escoja otro</div>
+
+            <!--Div para la alerta de email ya existe en la aplicacion-->
+            <div class="alert alert-danger" th:if="${existEmail}">El email ya esta registrado escoja otro</div>
+
+            <!--Div para indicar que las contraseñas no coinciden-->
+            <div class="alert alert-danger" th:if="${errorPassword}">Las contraseñas introducidas no coinciden, vuelva a intentarlo</div>
+        </div>
+
+        <div class="row justify-content-center login">
+            <form class="row g-3 needs-validation" novalidate th:action="@{/register/addUser}" th:object="${userAppModel}" method="post">
+
+                <!--Este input envia un token para evitar vulnerabilidades conocidas. Lo ponemos tal cual-->
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+
+                <div class="col-md-6">
+                    <label for="username" class="form-label">Nombre de usuario</label>
+                    <input type="text" class="form-control" id="username" required placeholder="Nombre de usuario" name="username" th:field="*{username}">
+                    <div class="row">
+                        <div class="col-md-12 text-danger" th:errors="*{username}"></div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" required placeholder="Email" name="email" th:field="*{email}">
+                    <div class="row">
+                        <div class="col-md-12 text-danger" th:errors="*{email}"></div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" required placeholder="Password" name="password" th:field="*{password}">
+                    <div class="row">
+                        <div class="col-md-12 text-danger" th:errors="*{password}"></div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="password2" class="form-label">Repita la contraseña</label>
+                    <input type="password" class="form-control" id="password2" required placeholder="Repita la contraseña" name="password2" th:field="*{password2}">
+                    <div class="row">
+                        <div class="col-md-12 text-danger" th:errors="*{password2}"></div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="phone" class="form-label">Telefono</label>
+                    <input type="text" class="form-control" id="phone" required placeholder="Teléfono" name="phone" th:field="*{phone}">
+                    <div class="row">
+                        <div class="col-md-12 text-danger" th:errors="*{phone}"></div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4">
+                    <label for="birthDate" class="form-label">Fecha de nacimiento</label>
+                    <input type="date" class="form-control" id="birthDate" required name="birthDate" th:field="*{birthDate}">
+                    <div class="row">
+                        <div class="col-md-12 text-danger" th:errors="*{birthDate}"></div>
+                    </div>
+                </div>
+
+                <div class="col-12 mt-5">
+                    <button class="btn btn-primary" type="submit">Registrarse</button>
+                </div>
+            </form>
+
+            <span class="mt-5">¿Ya tiene una cuenta? <a href="#" th:href="@{/login}"> Ir a login</a></span>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <link rel="stylesheet" href="#" th:href="@{css/style.css}">
+
+    <!--css de bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!--javascript de bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!--Archivos javascript propios-->
+    <script th:src="@{js/login.js}" crossorigin="anonymous"></script>
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="row justify-content-center text-center m-5">
+            <div class="principal-login">
+                <h4>Login</h4>
+
+                <!--Div para la alerta de usuario o contraseña erroneos-->
+                <div class="alert alert-danger" th:if="${error}">Nombre de usuario o contraseña incorrectos</div>
+
+                <!--Div para la alerta de que el usuario no se ha guargado en la BBDD-->
+                <div class="alert alert-danger" th:if="${errorSaveUser}">Ha ocurrido un problema al guardar el usuario inténtelo más tarde</div>
+
+                <!--Div para informar de que el usuario se ha registrado con éxito-->
+                <div class="alert alert-success" th:if="${saveUser}">Usuario registrado con éxito</div>
+
+            </div> <!--Fin de principal-login-->
+        </div> <!--Fin de row justify-content-->
+
+        <div class="row justify-content-center m-5">
+            <div class="principal-login">
+                <p>Super Admin: Nombre de usuario: jitos86, Password: admin</p>
+
+                <div class="row justify-content-center login">
+                    <form class="row g-3 needs-validation" novalidate th:action="@{/loginurl}" method="post">
+
+                        <!--Este input envia un token para evitar vulnerabilidades conocidas. Lo ponemos tal cual-->
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+
+                        <div class="col-md-6">
+                            <label for="username" class="form-label">Nombre de usuario</label>
+                            <input type="text" class="form-control" id="username" required placeholder="Nombre de usuario" name="username">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" required placeholder="Password" name="password">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mt-5">
+                                <button class="btn btn-primary" type="submit">Login</button>
+                            </div>
+                            <div class="col-md-6 mt-5">
+                                <a th:href="@{/}">Volver a la página principal</a>
+                            </div>
+                        </div>
+                    </form>
+
+                    <span class="mt-5">¿Aún no tiene una cuenta? <a href="#" th:href="@{/register/formRegister}"> Registrarse</a></span>
+                </div>
+
+            </div> <!--Fin de principal-login-->
+        </div> <!--Fin de row justify-content-->
+    </div> <!--Fin de container-->
+
+</body>
+</html>
