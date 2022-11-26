@@ -1,9 +1,226 @@
-
-.principal-login {
-    width: 50% !important;
+/*---------------------------------------------------------*/
+/*-------------------   Index.html    ---------------------*/
+/*---------------------------------------------------------*/
+body {
+  background-color: whitesmoke;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none !important;
+  /* color: #212529 !important; */
 }
 
+.container-fluid {
+  padding: 0;
+}
+
+.row {
+  margin: 0;
+}
+
+header .registro {
+  position: absolute;
+  right: 2rem;
+}
+
+header .registro img,
+header .registro a,
+header .registro span {
+  float: right;
+}
+
+header .registro img {
+  width: 2.3rem;
+  margin: 35px 25px;
+}
+
+header .registro a {
+  margin: 40px 5px;
+  text-decoration: none;
+  color: papayawhip;
+}
+
+header .registro a.logout {
+  margin-right: 30px;
+}
+
+header .registro span {
+  margin: 40px -10px;
+  color: papayawhip;
+}
+
+header nav.navbar {
+  background-color: transparent;
+  position: absolute;
+  top: 7rem;
+  left: 15rem;
+  width: 70%;
+  z-index: 0;
+}
+
+header nav.navbar a {
+  font-size: 1.5rem;
+  color: papayawhip !important;
+  letter-spacing: 0.05rem;
+}
+
+header nav.navbar a.active {
+  color: black !important;
+}
+
+header nav.navbar li {
+  padding: 0.4rem;
+}
+
+header nav.navbar .btn-search {
+  color: papayawhip;
+  border-color: papayawhip;
+}
+
+header nav.navbar ul.dropdown-menu {
+  background-color: rgba(250, 235, 215, .3);
+}
+
+header nav.navbar ul.dropdown-menu li a.dropdown-item:hover {
+  background-color: transparent;
+  color: rgba(0, 0, 0, .8) !important;
+}
+
+.foto-portada {
+  padding: 0;
+  width: 100vw
+}
+
+header .foto-portada img {
+  width: 100%;
+}
+
+.carousel {
+  z-index: -1;
+}
+
+main .carousel-inner {
+  /* height: 90vh; */
+  margin: 1vh 0;
+}
+
+main .carousel-item img {
+  object-fit: cover;
+}
+
+main .fila1 {
+  margin-top: 3rem;
+}
+
+main .banner {
+  width: 300px;
+  height: 450px;
+  background-color: lightgray;
+  margin: 40px;
+  float: left;
+}
+
+main .bannerx {
+  width: 300px;
+  height: 450px;
+  background-color: rgb(75, 73, 73);
+  margin: 40px;
+  float: left;
+}
+
+main .banner-doble {
+  width: 700px;
+  height: 300px;
+  background-color: lightgray;
+  margin: 40px;
+}
+
+footer {
+  height: 20rem;
+  background-color: black;
+  color: whitesmoke;
+}
+
+
+/*---------------------------------------------------------*/
+/*-------------------   login.html    ---------------------*/
+/*---------------------------------------------------------*/
+
+
+
+/*---------------------------------------------------------*/
+/*-------------------   register.html    ------------------*/
+/*---------------------------------------------------------*/
+.registro span {
+  margin-bottom: 8rem;
+}
+
+a.reg-volver {
+  float: right;
+  margin-top: 0.8rem;
+}
+
+/*---------------------------------------------------------*/
+/*-------------------   mediaquery    ---------------------*/
+/*---------------------------------------------------------*/
+
+/*----------Para que el botón de buscar del nav tenga espacio--------------*/
+@media (min-width:960px) and (max-width:1250px) {
+  header nav.navbar {
+    left: 9rem;
+  }
+}
+
+/*-------------------Tablets en modo landscape-------------------------*/
+@media (min-width:500px) and (max-width: 960px) {
+
+  /*A 990px el nav de bootstrap se pone en modo hamburguesa*/
+  /* header .registro {} */
+  header nav.navbar {
+    top: 2rem;
+    left: 4rem;
+  }
+}
+
+/*-------------Tablet como por ejemplo ipad en modo portrait-----------*/
+@media (min-width:480px) and (max-width:768px) {}
+
+/*Para que se oculten los banner dobles cuando bajen de esa medida*/
+@media (max-width: 800px) {
+  main .banner-doble {
+    display: none;
+  }
+}
+
+/*-------------------Visión Movil-------------------------------*/
+@media (max-width: 480px) {
+
+  /*------   index.html--------*/
+  header nav.navbar {
+    left: 0;
+    top: 1rem;
+  }
+
+  header .registro {
+    font-size: 0.6rem;
+    right: 0;
+  }
+
+  header .registro img {
+    width: 1.5rem;
+    margin-right: 0.4rem;
+  }
+
+  main .carousel-inner {
+    height: 32vh;
+  }
+
+  main .banner1 {
+    margin-top: 0;
+  }
+
+  header nav.navbar a {
+    font-size: 1rem;
+  }
+
+}

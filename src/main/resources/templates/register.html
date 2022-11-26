@@ -29,7 +29,7 @@
             <div class="alert alert-danger" th:if="${errorPassword}">Las contraseñas introducidas no coinciden, vuelva a intentarlo</div>
         </div>
 
-        <div class="row justify-content-center login">
+        <div class="row justify-content-center registro">
             <form class="row g-3 needs-validation" novalidate th:action="@{/register/addUser}" th:object="${userAppModel}" method="post">
 
                 <!--Este input envia un token para evitar vulnerabilidades conocidas. Lo ponemos tal cual-->
@@ -84,8 +84,13 @@
                     </div>
                 </div>
 
-                <div class="col-12 mt-5">
-                    <button class="btn btn-primary" type="submit">Registrarse</button>
+                <div class="row mt-5">
+                    <div class="col-md-6">
+                        <button class="btn btn-primary" type="submit">Registrarse</button>
+                    </div>
+                    <div class="col-md-6">
+                        <a class="reg-volver" th:href="@{/}" href="index.html">Volver a la página principal</a>
+                    </div>
                 </div>
             </form>
 

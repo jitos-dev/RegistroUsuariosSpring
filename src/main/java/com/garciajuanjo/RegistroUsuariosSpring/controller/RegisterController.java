@@ -59,58 +59,61 @@ public class RegisterController {
         //Si el formulario tiene errores lo volvemos a mostrar con los mensajes de error que los tiene el bindingResult
         if (bindingResult.hasErrors()) {
             mav.setViewName(REGISTER_VIEW);
-        } else {
-            //Pasamos la vista del registro al ModelAndView por si hay errores que se vaya hay. Si luego no hay la cambiamos
-            mav.setViewName(REGISTER_VIEW);
+            return mav;
+        }
 
-            //Comprobamos que no exista un usuario con ese nombre de usuario
-            boolean exist = userAppRepositoryQueryDSL.existUserAppByUsername(userAppModel.getUsername());
+        //Pasamos la vista del registro al ModelAndView por si hay errores que se vaya hay. Si luego no hay la cambiamos
+        mav.setViewName(REGISTER_VIEW);
 
-            //Si existe el nombre de usuario volvemos al registro y sacamos el mensaje de error
-            if (exist) {
-                mav.addObject("existUsername", true);
-                return mav;
-            }
+        //Comprobamos que no exista un usuario con ese nombre de usuario
+        boolean exist = userAppRepositoryQueryDSL.existUserAppByUsername(userAppModel.getUsername());
 
-            exist = userAppRepositoryQueryDSL.existEmail(userAppModel.getEmail());
+        //Si existe el nombre de usuario volvemos al registro y sacamos el mensaje de error
+        if (exist) {
+            mav.addObject("existUsername", true);
+            return mav;
+        }
 
-            //Si existe el nombre de usuario volvemos al registro y sacamos el mensaje de error
-            if (exist) {
-                mav.addObject("existEmail", true);
-                return mav;
-            }
+        exist = userAppRepositoryQueryDSL.existEmail(userAppModel.getEmail());
 
-            //Comprobamos que las contaseñas que ha introducido son iguales
-            if (!userAppModel.getPassword().equals(userAppModel.getPassword2())) {
-                mav.addObject("errorPassword", true);
-                return mav;
-            }
+        //Si existe el nombre de usuario volvemos al registro y sacamos el mensaje de error
+        if (exist) {
+            mav.addObject("existEmail", true);
+            return mav;
+        }
 
-            //Si no esta registrado el email, ni el username, ni tiene fallos en el formulario lo guardamos en BBDD
-            addRoleAdmin(userAppModel);
-            UserAppModel uam = userAppService.addUserApp(userAppModel);
+        //Comprobamos que las contaseñas que ha introducido son iguales
+        if (!userAppModel.getPassword().equals(userAppModel.getPassword2())) {
+            mav.addObject("errorPassword", true);
+            return mav;
+        }
+
+        //Si no esta registrado el email, ni el username, ni tiene fallos en el formulario lo guardamos en BBDD
+        addRoleAdmin(userAppModel);
+        UserAppModel uam = userAppService.addUserApp(userAppModel);
 
             /*Si llegamos aquí ya nos vamos a la vista de login bien con un mensaje de que se a guardado correctamente
             o con un mensaje de error al guarda los datos*/
-            mav.setViewName(LOGGIN_VIEW);
-            if (uam != null)
-                mav.addObject("saveUser", true);
-            else
-                mav.addObject("errorSaveUser", true);
+        mav.setViewName(LOGGIN_VIEW);
+        if (uam != null)
+            mav.addObject("saveUser", true);
+        else
+            mav.addObject("errorSaveUser", true);
 
-            //TODO si el registro esta correcto mandar un email para que lo valide el usuario y el enabled lo pongo a true
-        }
+        //TODO si el registro esta correcto mandar un email para que lo valide el usuario y el enabled lo pongo a true
+
 
         return mav;
     }
 
     /**
      * Añade el ROLE_ADMIN a un UserAppModel que pasamos por parámetro
+     *
      * @param uam UserAppModel al que añadimos el ROLE_ADMIN
      */
-    private void addRoleAdmin(UserAppModel uam){
+    private void addRoleAdmin(UserAppModel uam) {
         Set<Roles> roles = new HashSet<>();
-        roles.add(new Roles(1, "ROLE_ADMIN"));
+        roles.add(new Roles(2, "ROLE_USER"));
         uam.setUserRoles(roles);
     }
 }

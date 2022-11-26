@@ -14,7 +14,7 @@ public class UsersController {
 
     private final Log LOGGER = LogFactory.getLog(UsersController.class);
 
-    @GetMapping("/panel")
+    @GetMapping({"/panel", ""})
     public String showUsersPanel(){
         LOGGER.info("VIEW: users.html");
 

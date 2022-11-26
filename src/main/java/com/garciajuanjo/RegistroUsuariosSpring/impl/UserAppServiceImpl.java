@@ -40,10 +40,7 @@ public class UserAppServiceImpl implements UserAppService {
         UserApp userApp = userAppRepository.save(userAppConverter.userAppModelToUserApp(userAppModel));
 
         //Si se ha guardado lo volvemos a convertir a UserAppModel y lo devolvemos
-        if (userApp != null)
-            return userAppConverter.userAppToUserAppModel(userApp);
-        else
-            return null;
+        return userAppConverter.userAppToUserAppModel(userApp);
     }
 
     /**

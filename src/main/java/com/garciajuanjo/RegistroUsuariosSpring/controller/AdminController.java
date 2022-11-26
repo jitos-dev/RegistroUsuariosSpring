@@ -16,7 +16,7 @@ public class AdminController {
 
     private final Log LOGGER = LogFactory.getLog(AdminController.class);
 
-    @GetMapping("/panel")
+    @GetMapping({"/panel", ""})
     public String showAdminPanel(){
         LOGGER.info("VIEW: admin.html");
 
