@@ -17,7 +17,7 @@ import java.util.Set;
 public class Roles {
 
     @Id
-    @GeneratedValue
+    //@GeneratedValue
     @Column(name = "role_id", unique = true, nullable = false)
     private int roleId;
 

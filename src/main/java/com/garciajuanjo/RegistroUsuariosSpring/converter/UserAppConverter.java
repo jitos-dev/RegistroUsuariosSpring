@@ -24,6 +24,7 @@ public class UserAppConverter {
         userApp.setId(userAppModel.getId());
         userApp.setUsername(userAppModel.getUsername());
         userApp.setPassword(userAppModel.getPassword());
+        userApp.setEnabled(userAppModel.isEnabled());
         userApp.setEmail(userAppModel.getEmail());
         userApp.setPhone(userAppModel.getPhone());
         userApp.setBirthDate(dateComponent.dateToString(userAppModel.getBirthDate()));
@@ -41,6 +42,7 @@ public class UserAppConverter {
         userAppModel.setId(userApp.getId());
         userAppModel.setEmail(userApp.getEmail());
         userAppModel.setPhone(userApp.getPhone());
+        userAppModel.setEnabled(userApp.isEnabled());
         userAppModel.setUsername(userApp.getUsername());
         userAppModel.setPassword(userApp.getPassword());
         userAppModel.setBirthDate(dateComponent.stringToDate(userApp.getBirthDate()));

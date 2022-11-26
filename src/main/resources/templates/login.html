@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.springframework.org/schema/data/jaxb">
+<html lang="es" xmlns:th="http://www.springframework.org/schema/data/jaxb">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 
-    <link rel="stylesheet" href="#" th:href="@{css/style.css}">
+<!--    <link rel="stylesheet" type="text/css" href="#" th:href="@{/css/style.css}">-->
 
     <!--css de bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -44,10 +46,10 @@
     <div class="row justify-content-center m-5">
         <div class="col-auto">
             <div class="principal-login">
-                <p>Super Admin: Nombre de usuario: jitos86, Password: admin</p>
+                <p>Super Admin: Nombre de usuario: admin, Password: admin</p>
 
                 <div class="row justify-content-center login">
-                    <form class="row g-3 needs-validation" novalidate th:action="@{/loginurl}" method="post">
+                    <form class="row g-3 needs-validation" novalidate th:action="@{/loginAccess}" method="post">
 
                         <!--Este input envia un token para evitar vulnerabilidades conocidas. Lo ponemos tal cual-->
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
@@ -72,8 +74,7 @@
                         </div>
                     </form>
 
-                    <span class="mt-5">¿Aún no tiene una cuenta? <a href="register.html"
-                                                                    th:href="@{/register/formRegister}"> Registrarse</a></span>
+                    <span class="mt-5">¿Aún no tiene una cuenta? <a th:href="@{/register/formRegister}"> Registrarse</a></span>
                 </div>
 
             </div>

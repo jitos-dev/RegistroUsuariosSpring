@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.*;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.temporal.Temporal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -50,4 +52,14 @@ public class UserAppModel {
 
     private LocalDateTime dischargeDate;
     private Set<Roles> userRoles = new HashSet<>();
+
+    public UserAppModel(String username, String password, String email, String phone, Set<Roles> userRoles) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.enabled = true;
+        this.birthDate = new Date();
+        this.userRoles = userRoles;
+    }
 }

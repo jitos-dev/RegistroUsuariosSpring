@@ -74,7 +74,7 @@ public class SecurityConfiguration {
                 .and()
                 .formLogin()
                     .loginPage("/login")
-                    .loginProcessingUrl("/loginurl")
+                    .loginProcessingUrl("/loginAccess")
                     .failureUrl("/login?error=true")
                     .usernameParameter("username")
                     .passwordParameter("password")

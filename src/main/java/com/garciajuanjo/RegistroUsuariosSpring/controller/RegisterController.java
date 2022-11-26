@@ -1,14 +1,15 @@
 package com.garciajuanjo.RegistroUsuariosSpring.controller;
 
 import com.garciajuanjo.RegistroUsuariosSpring.entity.Roles;
+import com.garciajuanjo.RegistroUsuariosSpring.entity.UserApp;
 import com.garciajuanjo.RegistroUsuariosSpring.model.UserAppModel;
+import com.garciajuanjo.RegistroUsuariosSpring.repository.RolesRepository;
 import com.garciajuanjo.RegistroUsuariosSpring.repository.UserAppRepositoryQueryDSL;
 import com.garciajuanjo.RegistroUsuariosSpring.service.UserAppService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static com.garciajuanjo.RegistroUsuariosSpring.constant.ViewsConstant.*;
@@ -42,9 +44,17 @@ public class RegisterController {
     @Qualifier("userAppServiceImpl")
     private UserAppService userAppService;
 
+    @Autowired
+    @Qualifier("rolesRepository")
+    private RolesRepository rolesRepository;
+
     @GetMapping("/formRegister")
     public String showViewRegister(Model model) {
         LOGGER.info("VIEW: register.html");
+
+        //Cuando entra al formulario de registro comprobamos si estan los roles y el SuperAdmin o no para añadirlo
+        addRolesApp();
+        addSuperAdmin();
 
         model.addAttribute("userAppModel", new UserAppModel());
         return REGISTER_VIEW;
@@ -89,7 +99,7 @@ public class RegisterController {
         }
 
         //Si no esta registrado el email, ni el username, ni tiene fallos en el formulario lo guardamos en BBDD
-        addRoleAdmin(userAppModel);
+        addRoleUser(userAppModel);
         UserAppModel uam = userAppService.addUserApp(userAppModel);
 
             /*Si llegamos aquí ya nos vamos a la vista de login bien con un mensaje de que se a guardado correctamente
@@ -107,13 +117,56 @@ public class RegisterController {
     }
 
     /**
-     * Añade el ROLE_ADMIN a un UserAppModel que pasamos por parámetro
+     * Añade el ROLE_USER a un UserAppModel que pasamos por parámetro
      *
-     * @param uam UserAppModel al que añadimos el ROLE_ADMIN
+     * @param uam UserAppModel al que añadimos el ROLE_USER
      */
-    private void addRoleAdmin(UserAppModel uam) {
+    private void addRoleUser(UserAppModel uam) {
         Set<Roles> roles = new HashSet<>();
-        roles.add(new Roles(2, "ROLE_USER"));
+        roles.add(new Roles(3, "ROLE_USER"));
         uam.setUserRoles(roles);
     }
+
+    /**
+     * Creamos los Roles que va a tener la aplicación.
+     * @return
+     */
+    private Set<Roles> getRolesApp() {
+        Roles rolSuperAdmin = new Roles(1, "ROLE_SUPER_ADMIN");
+        Roles rolAdmin = new Roles(2, "ROLE_ADMIN");
+        Roles rolUser = new Roles(3, "ROLE_USER");
+        Roles rolGuest = new Roles(4,"ROLE_GUEST");
+
+        return new HashSet<>(List.of(rolSuperAdmin, rolAdmin, rolUser,rolGuest));
+    }
+
+    /**
+     * Guardamos los roles en la BBDD si no existen
+     */
+    private void addRolesApp() {
+        getRolesApp().forEach(roles -> {
+            Roles role = rolesRepository.findByName(roles.getName());
+            if (role == null)
+                rolesRepository.save(roles);
+        });
+    }
+
+    /**
+     * Añadimos el SuperAdmin a la app
+     */
+    private void addSuperAdmin(){
+        String userName = "admin";
+        String password = "admin";
+        String email = "admin@admin.com";
+        String phone = "600000000";
+
+        UserAppModel admin = new UserAppModel(userName, password, email, phone, getRolesApp());
+        UserApp userApp = userAppService.findByUsername(userName);
+
+        if (userApp == null) {
+            userAppService.addUserApp(admin);
+        }
+    }
+
+
 }
