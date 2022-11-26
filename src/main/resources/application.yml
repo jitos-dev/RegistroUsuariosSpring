@@ -1,7 +1,7 @@
 #Los comentarios que pongamos en este archivo no pueden tener acentos o da error al compilar
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/registro_usuarios #conexion a la bbdd en el puerto 3306 y la bbdd es mydb
+    url: jdbc:mysql://localhost:3306/registro_usuarios?createDatabaseIfNotExist=true #conexion a la bbdd en el puerto 3306 y la bbdd es mydb
     username: root
     password: root
   jpa:
