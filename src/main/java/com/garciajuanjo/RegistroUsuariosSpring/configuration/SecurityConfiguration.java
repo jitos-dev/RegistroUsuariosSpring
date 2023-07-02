@@ -13,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-
 @Configuration //Para indicar que es una clase de configuracion
 @EnableWebSecurity //Para habilitar la seguridad web
 @EnableGlobalMethodSecurity(prePostEnabled = true) //para controlar el acceso a los métodos y darle seguridad
